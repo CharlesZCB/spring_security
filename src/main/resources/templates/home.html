@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+</head>
+<body>
+<h1 th:align="center">这是主页</h1>
+<div>
+    <div>
+        <div sec:authorize="!isAuthenticated()">
+            游客您好！<a th:href="@{/userLogin}">请登录</a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <span sec:authentication="name"></span>,您好!(<span sec:authentication="principal.authorities"></span>)
+            <form th:action="@{/logout}" method="post">
+                <input th:type="submit" th:value="注销"/>
+            </form>
+        </div>
+        <br/>
+        <div sec:authorize="hasRole('Level1')">
+            <h3>会员级别一</h3>
+            <h5><a href="/ghost/1">a1</a></h5>
+            <h5><a href="/ghost/2">a2</a></h5>
+            <h5><a href="/ghost/3">a3</a></h5>
+        </div>
+
+        <br/>
+        <div sec:authorize="hasRole('Level2')">
+            <h3>会员级别二</h3>
+            <h5><a href="/ghost1/1">b1</a></h5>
+            <h5><a href="/ghost1/2">b2</a></h5>
+            <h5><a href="/ghost1/3">b3</a></h5>
+        </div>
+
+        <br/>
+       <div sec:authorize="hasRole('Level3')">
+           <h3>会员级别三</h3>
+           <h5><a href="/ghost2/1">c1</a></h5>
+           <h5><a href="/ghost2/2">c2</a></h5>
+           <h5><a href="/ghost2/3">c3</a></h5>
+       </div>
+    </div>
+</div>
+
+</body>
+</html>
